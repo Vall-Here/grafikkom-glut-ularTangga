@@ -1,177 +1,451 @@
-/*
- * GLUT Shapes Demo
- *
- * Written by Nigel Stewart November 2003
- *
- * This program is test harness for the sphere, cone
- * and torus shapes in GLUT.
- *
- * Spinning wireframe and smooth shaded shapes are
- * displayed until the ESC or q key is pressed.  The
- * number of geometry stacks and slices can be adjusted
- * using the + and - keys.
- */
-
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
 #include <windows.h>
-#include <stdlib.h>
+#include <GL/glut.h>
+#include <stdio.h>
+#include <time.h>
 
-static int slices = 16;
-static int stacks = 16;
 
-/* GLUT callback Handlers */
+const int BOARD_WIDTH = 7;
+int player1Position = 1;
+int player2Position = 1;
+int currentPlayer = 2;
 
-static void resize(int width, int height)
-{
-    const float ar = (float) width / (float) height;
+const int rows = 12;
+const int cols = 7;
+int diceResult = 0;
 
-    glViewport(0, 0, width, height);
+// void drawFour(float xAtas, float yBawah , float z) {
+//     glColor3f(0.0,0.0,0.0);
+//     glBegin(GL_POLYGON);
+//     glVertex3f(0.9 + xAtas, 0.6 + yBawah, z);
+//     glVertex3f(0.85 + xAtas, 0.6 + yBawah, z);
+//     glVertex3f(0.85 + xAtas, 0.90 + yBawah, z);
+//     glVertex3f(0.9 + xAtas, 0.90 + yBawah, z);
+//     glEnd();
+
+//     glBegin(GL_POLYGON);
+//     glVertex3f(0.9 + xAtas, 0.90 + yBawah, z);
+//     glVertex3f(0.85 + xAtas, 0.90 + yBawah, z);
+//     glVertex3f(0.75 + xAtas, 0.72 + yBawah, z);
+//     glVertex3f(0.78 + xAtas, 0.72 + yBawah, z);
+//     glEnd();
+
+//     glBegin(GL_POLYGON);
+//     glVertex3f(0.78 + xAtas, 0.76 + yBawah, z);
+//     glVertex3f(0.75 + xAtas, 0.71 + yBawah, z);
+//     glVertex3f(0.9 + xAtas, 0.71 + yBawah, z);
+//     glVertex3f(0.9 + xAtas, 0.76 + yBawah, z);
+//     glEnd();
+// }
+
+
+// void drawSix(float xAtas, float yBawah, float z) {
+//     glColor3f(0.0,0.0,0.0);
+//     glBegin(GL_POLYGON);
+
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.9f, z);
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.85f, z);
+//     glVertex3f(xAtas + 0.75f, yBawah + 0.85f, z);
+//     glVertex3f(xAtas + 0.75f, yBawah + 0.9f, z);
+//     glEnd();
+
+//     glBegin(GL_POLYGON);
+//     glVertex3f(xAtas + 0.75f, yBawah + 0.9f, z);
+//     glVertex3f(xAtas + 0.75f, yBawah + 0.6f, z);
+//     glVertex3f(xAtas + 0.8f, yBawah + 0.6f, z);
+//     glVertex3f(xAtas + 0.8f, yBawah + 0.9f, z);
+//     glEnd();
+
+//     glBegin(GL_POLYGON);
+//     glVertex3f(xAtas + 0.8f, yBawah + 0.6f, z);
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, z);
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, z);
+//     glVertex3f(xAtas + 0.8f, yBawah + 0.65f,z);
+//     glEnd();
+
+//     glBegin(GL_POLYGON);
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.75f, z);
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, z);
+//     glVertex3f(xAtas + 0.85f, yBawah + 0.6f, z);
+//     glVertex3f(xAtas + 0.85f, yBawah + 0.75f, z);
+//     glEnd();
+
+//     glBegin(GL_POLYGON);
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.75f, z);
+//     glVertex3f(xAtas + 0.8f, yBawah + 0.75f, z);
+//     glVertex3f(xAtas + 0.8f, yBawah + 0.7f, z);
+//     glVertex3f(xAtas + 0.9f, yBawah + 0.7f, z);
+//     glEnd();
+// }
+
+
+
+
+
+
+void drawBoard() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glLoadIdentity();
+
+
+    //glRotatef(25, 1, 0, 0);
+
+    //kotak 1
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+        // Sisi depan
+        glColor3f(0.5,1,0.5); // Merah
+        glVertex3f(0,0,0.5);
+        glVertex3f(1,0,0.5);
+        glVertex3f(1,1,0.5);
+        glVertex3f(0,1,0.5);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi belakang
+        glColor3f(0.5,1,0.5); // Hijau
+        glVertex3f(0,0,0);
+        glVertex3f(0,1,0);
+        glVertex3f(1,1,0);
+        glVertex3f(1,0,0);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi kanan
+        glColor3f(0.5,1,0.5);
+        glVertex3f(1,0,0);
+        glVertex3f(1,1,0);
+        glVertex3f(1,1,0.5);
+        glVertex3f(1,0,0.5);
+    glEnd();
+    glBegin(GL_POLYGON);
+        // Sisi kiri
+        glColor3f(0.5,1,0.5);
+        glVertex3f(0,0,0);
+        glVertex3f(0,0,0.5);
+        glVertex3f(0,1,0.5);
+        glVertex3f(0,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(0.5,1,0.5);
+        glVertex3f(0,1,0);
+        glVertex3f(0,1,0.5);
+        glVertex3f(1,1,0.5);
+        glVertex3f(1,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(0.5,1,0.5);
+        glVertex3f(0,0,0);
+        glVertex3f(0,0,0.5);
+        glVertex3f(1,0,0.5);
+        glVertex3f(1,0,0);
+    glEnd();
+    glPopMatrix();
+
+    //kotak 2
+     glPushMatrix();
+    glBegin(GL_POLYGON);
+        // Sisi depan
+        glColor3f(1,1,0.5); // Merah
+        glVertex3f(1,0,0.5);
+        glVertex3f(2,0,0.5);
+        glVertex3f(2,1,0.5);
+        glVertex3f(1,1,0.5);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi belakang
+        glColor3f(1,1,0.5); // Hijau
+        glVertex3f(1,0,0);
+        glVertex3f(1,1,0);
+        glVertex3f(2,1,0);
+        glVertex3f(2,0,0);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi kanan
+        glColor3f(1,1,0.5);
+        glVertex3f(2,0,0);
+        glVertex3f(2,1,0);
+        glVertex3f(2,1,0.5);
+        glVertex3f(2,0,0.5);
+    glEnd();
+    glBegin(GL_POLYGON);
+        // Sisi kiri
+        glColor3f(1,1,0.5);
+        glVertex3f(1,0,0);
+        glVertex3f(1,0,0.5);
+        glVertex3f(1,1,0.5);
+        glVertex3f(1,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(1,1,0.5);
+        glVertex3f(1,1,0);
+        glVertex3f(1,1,0.5);
+        glVertex3f(2,1,0.5);
+        glVertex3f(2,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(1,1,0.5);
+        glVertex3f(1,0,0);
+        glVertex3f(1,0,0.5);
+        glVertex3f(2,0,0.5);
+        glVertex3f(2,0,0);
+    glEnd();
+    glPopMatrix();
+
+    //kotak 3
+     glPushMatrix();
+    glBegin(GL_POLYGON);
+        // Sisi depan
+        glColor3f(0.5,1,0.5); // Merah
+        glVertex3f(2,0,0.5);
+        glVertex3f(3,0,0.5);
+        glVertex3f(3,1,0.5);
+        glVertex3f(2,1,0.5);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi belakang
+        glColor3f(0.5,1,0.5); // Hijau
+        glVertex3f(2,0,0);
+        glVertex3f(2,1,0);
+        glVertex3f(3,1,0);
+        glVertex3f(3,0,0);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi kanan
+        glColor3f(0.5,1,0.5);
+        glVertex3f(2,0,0);
+        glVertex3f(2,1,0);
+        glVertex3f(2,1,0.5);
+        glVertex3f(2,0,0.5);
+    glEnd();
+    glBegin(GL_POLYGON);
+        // Sisi kiri
+        glColor3f(0.5,1,0.5);
+        glVertex3f(2,0,0);
+        glVertex3f(2,0,0.5);
+        glVertex3f(2,1,0.5);
+        glVertex3f(2,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(0.5,1,0.5);
+        glVertex3f(2,1,0);
+        glVertex3f(2,1,0.5);
+        glVertex3f(3,1,0.5);
+        glVertex3f(3,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(0.5,1,0.5);
+        glVertex3f(2,0,0);
+        glVertex3f(2,0,0.5);
+        glVertex3f(3,0,0.5);
+        glVertex3f(3,0,0);
+    glEnd();
+    glPopMatrix();
+
+    //kotak 4
+     glPushMatrix();
+    glBegin(GL_POLYGON);
+        // Sisi depan
+        glColor3f(1,1,0.5); // Merah
+        glVertex3f(3,0,0.5);
+        glVertex3f(4,0,0.5);
+        glVertex3f(4,1,0.5);
+        glVertex3f(3,1,0.5);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi belakang
+        glColor3f(1,1,0.5); // Hijau
+        glVertex3f(3,0,0);
+        glVertex3f(3,1,0);
+        glVertex3f(4,1,0);
+        glVertex3f(4,0,0);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi kanan
+        glColor3f(1,1,0.5);
+        glVertex3f(3,0,0);
+        glVertex3f(3,1,0);
+        glVertex3f(3,1,0.5);
+        glVertex3f(3,0,0.5);
+    glEnd();
+    glBegin(GL_POLYGON);
+        // Sisi kiri
+        glColor3f(1,1,0.5);
+        glVertex3f(3,0,0);
+        glVertex3f(3,0,0.5);
+        glVertex3f(3,1,0.5);
+        glVertex3f(3,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(1,1,0.5);
+        glVertex3f(3,1,0);
+        glVertex3f(3,1,0.5);
+        glVertex3f(4,1,0.5);
+        glVertex3f(4,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(1,1,0.5);
+        glVertex3f(3,0,0);
+        glVertex3f(3,0,0.5);
+        glVertex3f(4,0,0.5);
+        glVertex3f(4,0,0);
+    glEnd();
+    glPopMatrix();
+
+    //kotak 5
+     glPushMatrix();
+    glBegin(GL_POLYGON);
+        // Sisi depan
+        glColor3f(0.5,1,0.5); // Merah
+        glVertex3f(4,0,0.5);
+        glVertex3f(5,0,0.5);
+        glVertex3f(5,1,0.5);
+        glVertex3f(4,1,0.5);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi belakang
+        glColor3f(0.5,1,0.5); // Hijau
+        glVertex3f(4,0,0);
+        glVertex3f(4,1,0);
+        glVertex3f(5,1,0);
+        glVertex3f(4,0,0);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi kanan
+        glColor3f(0.5,1,0.5);
+        glVertex3f(4,0,0);
+        glVertex3f(4,1,0);
+        glVertex3f(4,1,0.5);
+        glVertex3f(4,0,0.5);
+    glEnd();
+    glBegin(GL_POLYGON);
+        // Sisi kiri
+        glColor3f(0.5,1,0.5);
+        glVertex3f(4,0,0);
+        glVertex3f(4,0,0.5);
+        glVertex3f(4,1,0.5);
+        glVertex3f(4,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(0.5,1,0.5);
+        glVertex3f(4,1,0);
+        glVertex3f(4,1,0.5);
+        glVertex3f(5,1,0.5);
+        glVertex3f(4,1,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+        glColor3f(0.5,1,0.5);
+        glVertex3f(4,0,0);
+        glVertex3f(4,0,0.5);
+        glVertex3f(5,0,0.5);
+        glVertex3f(5,0,0);
+    glEnd();
+    glPopMatrix();
+
+    //kotak 8
+     glPushMatrix();
+    glBegin(GL_POLYGON);
+        // Sisi depan
+         glColor3f(1,1,0.5);  // Merah
+        glVertex3f(4,1,0.5);
+        glVertex3f(5,1,0.5);
+        glVertex3f(5,2,0.5);
+        glVertex3f(4,2,0.5);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi belakang
+         glColor3f(1,1,0.5);  // Hijau
+        glVertex3f(4,1,0);
+        glVertex3f(4,2,0);
+        glVertex3f(5,2,0);
+        glVertex3f(4,1,0);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        // Sisi kanan
+         glColor3f(1,1,0.5); 
+        glVertex3f(4,1,0);
+        glVertex3f(4,2,0);
+        glVertex3f(4,2,0.5);
+        glVertex3f(4,1,0.5);
+    glEnd();
+    glBegin(GL_POLYGON);
+        // Sisi kiri
+         glColor3f(1,1,0.5); 
+        glVertex3f(4,1,0);
+        glVertex3f(4,1,0.5);
+        glVertex3f(4,2,0.5);
+        glVertex3f(4,2,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+         glColor3f(1,1,0.5); 
+        glVertex3f(4,2,0);
+        glVertex3f(4,2,0.5);
+        glVertex3f(5,2,0.5);
+        glVertex3f(4,2,0);
+    glEnd();
+     glBegin(GL_POLYGON);
+        // Sisi atas
+         glColor3f(1,1,0.5); 
+        glVertex3f(4,1,0);
+        glVertex3f(4,1,0.5);
+        glVertex3f(5,1,0.5);
+        glVertex3f(5,1,0);
+    glEnd();
+    glPopMatrix();
+
+
+
+
+
+
+
+    glFlush();
+}
+
+
+
+void reshape(int w, int h) {
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustum(-ar, ar, -1.0, 1.0, 2.0, 100.0);
+    glOrtho(-5, 12, -5, 17, 5, -5);
 
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity() ;
-}
-
-static void display(void)
-{
-    const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
-    const double a = t*90.0;
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glColor3d(1,0,0);
-
-    glPushMatrix();
-        glTranslated(-2.4,1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutSolidSphere(1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(0,1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutSolidCone(1,1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(2.4,1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutSolidTorus(0.2,0.8,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(-2.4,-1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutWireSphere(1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(0,-1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutWireCone(1,1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(2.4,-1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutWireTorus(0.2,0.8,slices,stacks);
-    glPopMatrix();
-
-    glutSwapBuffers();
-}
-
-
-static void key(unsigned char key, int x, int y)
-{
-    switch (key)
-    {
-        case 27 :
-        case 'q':
-            exit(0);
-            break;
-
-        case '+':
-            slices++;
-            stacks++;
-            break;
-
-        case '-':
-            if (slices>3 && stacks>3)
-            {
-                slices--;
-                stacks--;
-            }
-            break;
-    }
-
-    glutPostRedisplay();
-}
-
-static void idle(void)
-{
-    glutPostRedisplay();
-}
-
-const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
-const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
-
-const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
-const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
-const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat high_shininess[] = { 100.0f };
-
-/* Program entry point */
-
-int main(int argc, char *argv[])
-{
-    glutInit(&argc, argv);
-    glutInitWindowSize(640,480);
-    glutInitWindowPosition(10,10);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-
-    glutCreateWindow("GLUT Shapes");
-
-    glutReshapeFunc(resize);
-    glutDisplayFunc(display);
-    glutKeyboardFunc(key);
-    glutIdleFunc(idle);
-
-    glClearColor(1,1,1,1);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-
-    glutMainLoop();
-
-    return EXIT_SUCCESS;
 }
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(700, 700);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Ular Tangga");
+    glutReshapeFunc(reshape);
+    glutDisplayFunc(drawBoard);
+
+
+    glClearColor(0, 0, 0, 0);
+    glutMainLoop();
+    return 0;
+}
+
