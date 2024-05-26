@@ -82,7 +82,7 @@ float rotateY = 0.0f;
 
 
 void drawKotak(){
-   //kotak 1
+      //kotak 1
     glPushMatrix();
     glBegin(GL_POLYGON);
         // Sisi depan
@@ -385,21 +385,21 @@ void drawKotak(){
         glVertex3f(5,0,0);
     glEnd();
      glBegin(GL_POLYGON);
-        // Sisi atas
-         glColor3f(1,1,0.5);
-        glVertex3f(4,2,0);
-        glVertex3f(4,2,0.5);
-        glVertex3f(5,2,0.5);
-        glVertex3f(4,2,0);
-    glEnd();
-     glBegin(GL_POLYGON);
-        // Sisi atas
-         glColor3f(1,1,0.5);
-        glVertex3f(4,1,0);
-        glVertex3f(4,1,0.5);
-        glVertex3f(5,1,0.5);
-        glVertex3f(5,1,0);
-    glEnd();
+            // Sisi atas
+            glColor3f(1,1,0.5);
+            glVertex3f(5,1,0);
+            glVertex3f(5,1,0.5);
+            glVertex3f(6,1,0.5);
+            glVertex3f(5,1,0);
+        glEnd();
+         glBegin(GL_POLYGON);
+            // Sisi atas
+            glColor3f( 1 ,1,0.5);
+            glVertex3f(5,0,0);
+            glVertex3f(5,0,0.5);
+            glVertex3f(6,0,0.5);
+            glVertex3f(6,0,0);
+        glEnd();
     glPopMatrix();
 
     //kotak 7
@@ -453,7 +453,6 @@ void drawKotak(){
         glVertex3f(7,0,0);
     glEnd();
     glPopMatrix();
-
     //kotak 8
      glPushMatrix();
     glBegin(GL_POLYGON);
