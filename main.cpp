@@ -81,18 +81,8 @@ float rotateY = 0.0f;
 // }
 
 
-
-
-
-
-void drawBoard() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //glLoadIdentity();
-
-
-    //glRotatef(25, 1, 0, 0);
-
-    //kotak 1
+void drawKotak(){
+   //kotak 1
     glPushMatrix();
     glBegin(GL_POLYGON);
         // Sisi depan
@@ -4469,70 +4459,34 @@ void drawBoard() {
         glVertex3f(1,11,0);
     glEnd();
     glPopMatrix();
+}
 
 
 
+
+
+void drawBoard() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glLoadIdentity();
+    drawKotak();
 
     glFlush();
 }
 
-void init() {
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glEnable(GL_DEPTH_TEST);
-}
 
-void setPerspectiveProjection() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0, 1.0, 1.0, 100.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(5.0, 5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-}
 
 void reshape(int w, int h) {
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-5, 12, -5, 17, 5, -5);
-    glPushMatrix();
-    glTranslatef(0.0, 0.0, -10.0);
-    glRotatef(rotateX, 1.0, 0.0, 0.0);
-    glRotatef(rotateY, 0.0, 1.0, 0.0);
-    drawBoard();
-    glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glEnable(GL_DEPTH_TEST);
     glutSwapBuffers();
 }
 
 
-void keyboard(unsigned char key, int x, int y) {
-    switch (key) {
 
-        case 'j':
-        case 'J':
-
-            rotateY -= 5.0f;
-            glutPostRedisplay();
-            break;
-        case 'l':
-        case 'L':
-            rotateY += 5.0f;
-            glutPostRedisplay();
-            break;
-        case 'i':
-        case 'I':
-            rotateX -= 5.0f;
-            glutPostRedisplay();
-            break;
-        case 'k':
-        case 'K':
-            rotateX += 5.0f;
-            glutPostRedisplay();
-            break;
-    }
-}
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
@@ -4542,11 +4496,10 @@ int main(int argc, char** argv) {
     glutCreateWindow("Ular Tangga");
     glutReshapeFunc(reshape);
     glutDisplayFunc(drawBoard);
-    glutKeyboardFunc(keyboard);
+
 
 
     glClearColor(0, 0, 0, 0);
     glutMainLoop();
     return 0;
 }
-
