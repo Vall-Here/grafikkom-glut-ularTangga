@@ -390,7 +390,7 @@ void drawKotak(){
             glVertex3f(5,1,0);
             glVertex3f(5,1,0.5);
             glVertex3f(6,1,0.5);
-            glVertex3f(5,1,0);
+            glVertex3f(6,1,0);
         glEnd();
          glBegin(GL_POLYGON);
             // Sisi atas
