@@ -17,6 +17,8 @@ int rollDice() {
 int jumlahlemparan = 1;
 int jumlahlemparan2 = 1;
 
+int pemenang = 0;
+
 //Variabel untuk nilai dari player
 float bidak_player1_X = 0.4;
 float bidak_player1_Y = 0.7;
@@ -60,6 +62,7 @@ bool rotasi_awal_dilakukan = false;
 // Variabel global untuk mode warna
 bool warna_transparan = false;
 
+// gambar 5 koordinat X awal, Y awal, Z awal, kedalaman
 void drawFour(float xAtas, float yBawah, float z, float depth) {
     float frontZ = z;
     float backZ = z + depth;
@@ -175,7 +178,7 @@ void drawFour(float xAtas, float yBawah, float z, float depth) {
 }
 
 
-
+    // gambar 6 koordinat X awal, Y awal, Z awal, kedalaman
 void drawSix(float x, float y, float z, float depth) {
     float frontZ = z;
     float backZ = z + depth;
@@ -365,10 +368,981 @@ void drawPlayer1 (float x , float y){
 void drawPlayer2(float x, float y){
     glColor3f(0,0,0);
     glTranslatef(x,y,0.6f);
-    glutSolidCube(0.1);
+    glutSolidCube(0.3);
     glTranslatef(-x,-y,-0.6f);
 }
 
+void drawTangga(){
+    //MENGGAMBAR TANGGA 1
+    
+    glColor3f(1.0f, 0.0f, 0.0f);
+    for (float i = 0.6; i < 3.6; i += 0.4) {
+        // depan
+        glBegin(GL_POLYGON);
+        glVertex3f(2.2, i, 1.0);
+        glVertex3f(2.8, i, 1.0);
+        glVertex3f(2.8, i + 0.1, 1.0);
+        glVertex3f(2.2, i + 0.1, 1.0);
+        glEnd();
+        // belakang
+        glBegin(GL_POLYGON);
+        glVertex3f(2.2, i, 0.7);
+        glVertex3f(2.8, i, 0.7);
+        glVertex3f(2.8, i + 0.1, 0.7);
+        glVertex3f(2.2, i + 0.1, 0.7);
+        glEnd();
+        // kiri
+        glBegin(GL_POLYGON);
+        glVertex3f(2.2, i, 1.0);
+        glVertex3f(2.2, i, 0.7);
+        glVertex3f(2.2, i + 0.1, 0.7);
+        glVertex3f(2.2, i + 0.1, 1.0);
+        glEnd();
+        // kanan
+        glBegin(GL_POLYGON);
+        glVertex3f(2.8, i, 1.0);
+        glVertex3f(2.8, i, 0.7);
+        glVertex3f(2.8, i + 0.1, 0.7);
+        glVertex3f(2.8, i + 0.1, 1.0);
+        glEnd();
+        // atas
+        glBegin(GL_POLYGON);
+        glVertex3f(2.2, i + 0.1, 1.0);
+        glVertex3f(2.8, i + 0.1, 1.0);
+        glVertex3f(2.8, i + 0.1, 0.7);
+        glVertex3f(2.2, i + 0.1, 0.7);
+        glEnd();
+        // bawah
+        glBegin(GL_POLYGON);
+        glVertex3f(2.2, i, 1.0);
+        glVertex3f(2.8, i, 1.0);
+        glVertex3f(2.8, i, 0.7);
+        glVertex3f(2.2, i, 0.7);
+        glEnd();
+    }
+    // gagang kiri
+    // depan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.2, 0.4, 1.0);
+    glVertex3f(2.3, 0.4, 1.0);
+    glVertex3f(2.3, 3.6, 1.0);
+    glVertex3f(2.2, 3.6, 1.0);
+    glEnd();
+    // belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(2.2, 0.4, 0.7);
+    glVertex3f(2.3, 0.4, 0.7);
+    glVertex3f(2.3, 3.6, 0.7);
+    glVertex3f(2.2, 3.6, 0.7);
+    glEnd();
+    // kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(2.2, 0.4, 1.0);
+    glVertex3f(2.2, 0.4, 0.7);
+    glVertex3f(2.2, 3.6, 0.7);
+    glVertex3f(2.2, 3.6, 1.0);
+    glEnd();
+    // kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.3, 0.4, 1.0);
+    glVertex3f(2.3, 0.4, 0.7);
+    glVertex3f(2.3, 3.6, 0.7);
+    glVertex3f(2.3, 3.6, 1.0);
+    glEnd();
+    // atas
+    glBegin(GL_POLYGON);
+    glVertex3f(2.2, 3.6, 1.0);
+    glVertex3f(2.3, 3.6, 1.0);
+    glVertex3f(2.3, 3.6, 0.7);
+    glVertex3f(2.2, 3.6, 0.7);
+    glEnd();
+    // bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(2.2, 0.4, 1.0);
+    glVertex3f(2.3, 0.4, 1.0);
+    glVertex3f(2.3, 0.4, 0.7);
+    glVertex3f(2.2, 0.4, 0.7);
+    glEnd();
+
+    // gagang kanan
+    // depan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7, 0.4, 1.0);
+    glVertex3f(2.8, 0.4, 1.0);
+    glVertex3f(2.8, 3.6, 1.0);
+    glVertex3f(2.7, 3.6, 1.0);
+    glEnd();
+    // belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7, 0.4, 0.7);
+    glVertex3f(2.8, 0.4, 0.7);
+    glVertex3f(2.8, 3.6, 0.7);
+    glVertex3f(2.7, 3.6, 0.7);
+    glEnd();
+    // kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7, 0.4, 1.0);
+    glVertex3f(2.7, 0.4, 0.7);
+    glVertex3f(2.7, 3.6, 0.7);
+    glVertex3f(2.7, 3.6, 1.0);
+    glEnd();
+    // kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.8, 0.4, 1.0);
+    glVertex3f(2.8, 0.4, 0.7);
+    glVertex3f(2.8, 3.6, 0.7);
+    glVertex3f(2.8, 3.6, 1.0);
+    glEnd();
+    // atas
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7, 3.6, 1.0);
+    glVertex3f(2.8, 3.6, 1.0);
+    glVertex3f(2.8, 3.6, 0.7);
+    glVertex3f(2.7, 3.6, 0.7);
+    glEnd();
+    // bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7, 0.4, 1.0);
+    glVertex3f(2.8, 0.4, 1.0);
+    glVertex3f(2.8, 0.4, 0.7);
+    glVertex3f(2.7, 0.4, 0.7);
+    glEnd();
+
+    
+
+    //MENGGAMBAR TANGGA 2
+    
+    glColor3f(1.0f, 0.0f, 0.0f);
+    for (float i = 8.4 + 0.4; i < 11.5; i += 0.4) {
+        // anak tangga
+        // depan
+        glBegin(GL_POLYGON);
+        glVertex3f(6.2, i, 1.0);
+        glVertex3f(7.2 - 0.4, i, 1.0);
+        glVertex3f(7.2 - 0.4, i + 0.1, 1.0);
+        glVertex3f(6.2, i + 0.1, 1.0);
+        glEnd();
+        // belakang
+        glBegin(GL_POLYGON);
+        glVertex3f(6.2, i, 0.7);
+        glVertex3f(7.2 - 0.4, i, 0.7);
+        glVertex3f(7.2 - 0.4, i + 0.1, 0.7);
+        glVertex3f(6.2, i + 0.1, 0.7);
+        glEnd();
+        // kiri
+        glBegin(GL_POLYGON);
+        glVertex3f(6.2, i, 1.0);
+        glVertex3f(6.2, i, 0.7);
+        glVertex3f(6.2, i + 0.1, 0.7);
+        glVertex3f(6.2, i + 0.1, 1.0);
+        glEnd();
+        // kanan
+        glBegin(GL_POLYGON);
+        glVertex3f(7.2 - 0.4, i, 1.0);
+        glVertex3f(7.2 - 0.4, i, 0.7);
+        glVertex3f(7.2 - 0.4, i + 0.1, 0.7);
+        glVertex3f(7.2 - 0.4, i + 0.1, 1.0);
+        glEnd();
+        // atas
+        glBegin(GL_POLYGON);
+        glVertex3f(6.2, i + 0.1, 1.0);
+        glVertex3f(7.2 - 0.4, i + 0.1, 1.0);
+        glVertex3f(7.2 - 0.4, i + 0.1, 0.7);
+        glVertex3f(6.2, i + 0.1, 0.7);
+        glEnd();
+        // bawah
+        glBegin(GL_POLYGON);
+        glVertex3f(6.2, i, 1.0);
+        glVertex3f(7.2 - 0.4, i, 1.0);
+        glVertex3f(7.2 - 0.4, i, 0.7);
+        glVertex3f(6.2, i, 0.7);
+        glEnd();
+    }
+    // gagang kiri
+    // depan
+    glBegin(GL_POLYGON);
+    glVertex3f(6.2, 8.4, 1.0);
+    glVertex3f(6.3, 8.4, 1.0);
+    glVertex3f(6.3, 11.5, 1.0);
+    glVertex3f(6.2, 11.5, 1.0);
+    glEnd();
+    // belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(6.2, 8.4, 0.7);
+    glVertex3f(6.3, 8.4, 0.7);
+    glVertex3f(6.3, 11.5, 0.7);
+    glVertex3f(6.2, 11.5, 0.7);
+    glEnd();
+    // kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(6.2, 8.4, 1.0);
+    glVertex3f(6.2, 8.4, 0.7);
+    glVertex3f(6.2, 11.5, 0.7);
+    glVertex3f(6.2, 11.5, 1.0);
+    glEnd();
+    // kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(6.3, 8.4, 1.0);
+    glVertex3f(6.3, 8.4, 0.7);
+    glVertex3f(6.3, 11.5, 0.7);
+    glVertex3f(6.3, 11.5, 1.0);
+    glEnd();
+    // atas
+    glBegin(GL_POLYGON);
+    glVertex3f(6.2, 11.5, 1.0);
+    glVertex3f(6.3, 11.5, 1.0);
+    glVertex3f(6.3, 11.5, 0.7);
+    glVertex3f(6.2, 11.5, 0.7);
+    glEnd();
+    // bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(6.2, 8.4, 1.0);
+    glVertex3f(6.3, 8.4, 1.0);
+    glVertex3f(6.3, 8.4, 0.7);
+    glVertex3f(6.2, 8.4, 0.7);
+    glEnd();
+
+    //gagang kanan
+    // depan
+    glBegin(GL_POLYGON);
+    glVertex3f(7.2 - 0.5, 8.4, 1.0);
+    glVertex3f(7.2 - 0.4, 8.4, 1.0);
+    glVertex3f(7.2 - 0.4, 11.5, 1.0);
+    glVertex3f(7.2 - 0.5, 11.5, 1.0);
+    glEnd();
+    // belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(7.2 - 0.5, 8.4, 0.7);
+    glVertex3f(7.2 - 0.4, 8.4, 0.7);
+    glVertex3f(7.2 - 0.4, 11.5, 0.7);
+    glVertex3f(7.2 - 0.5, 11.5, 0.7);
+    glEnd();
+    // kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(7.2 - 0.5, 8.4, 1.0);
+    glVertex3f(7.2 - 0.5, 8.4, 0.7);
+    glVertex3f(7.2 - 0.5, 11.5, 0.7);
+    glVertex3f(7.2 - 0.5, 11.5, 1.0);
+    glEnd();
+    // kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(7.2 - 0.4, 8.4, 1.0);
+    glVertex3f(7.2 - 0.4, 8.4, 0.7);
+    glVertex3f(7.2 - 0.4, 11.5, 0.7);
+    glVertex3f(7.2 - 0.4, 11.5, 1.0);
+    glEnd();
+    // atas
+    glBegin(GL_POLYGON);
+    glVertex3f(7.2 - 0.5, 11.5, 1.0);
+    glVertex3f(7.2 - 0.4, 11.5, 1.0);
+    glVertex3f(7.2 - 0.4, 11.5, 0.7);
+    glVertex3f(7.2 - 0.5, 11.5, 0.7);
+    glEnd();
+    // bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(7.2 - 0.5, 8.4, 1.0);
+    glVertex3f(7.2 - 0.4, 8.4, 1.0);
+    glVertex3f(7.2 - 0.4, 8.4, 0.7);
+    glVertex3f(7.2 - 0.5, 8.4, 0.7);
+    glEnd();
+
+   
+
+    //MENGGAMBAR TANGGA 3
+    glPushMatrix();
+    glColor3f(1.0f, 0.0f, 0.0f);
+    for (float i = 0.4 + 0.4; i < 5.4; i += 0.4) {
+        //anak tangga
+        //depan
+        glBegin(GL_POLYGON);
+        glVertex3f(i, 5.7, 1.0);
+        glVertex3f(i, 5.7 - 0.4, 1.0);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 1.0);
+        glVertex3f(i + 0.1, 5.7, 1.0);
+        glEnd();
+        //belakang
+        glBegin(GL_POLYGON);
+        glVertex3f(i, 5.7, 0.7);
+        glVertex3f(i, 5.7 - 0.4, 0.7);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.7);
+        glVertex3f(i + 0.1, 5.7, 0.7);
+        glEnd();
+        // Sisi kiri
+        glBegin(GL_POLYGON);
+        glVertex3f(i, 5.7, 1.0);
+        glVertex3f(i, 5.7, 0.7);
+        glVertex3f(i, 5.7 - 0.4, 0.7);
+        glVertex3f(i, 5.7 - 0.4, 1.0);
+        glEnd();
+        // Sisi kanan
+        glBegin(GL_POLYGON);
+        glVertex3f(i + 0.1, 5.7, 1.0);
+        glVertex3f(i + 0.1, 5.7, 0.7);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.7);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 1.0);
+        glEnd();
+        // Sisi atas
+        glBegin(GL_POLYGON);
+        glVertex3f(i, 5.7, 1.0);
+        glVertex3f(i, 5.7, 0.7);
+        glVertex3f(i + 0.1, 5.7, 0.7);
+        glVertex3f(i + 0.1, 5.7, 1.0);
+        glEnd();
+        // Sisi bawah
+        glBegin(GL_POLYGON);
+        glVertex3f(i, 5.7 - 0.4, 1.0);
+        glVertex3f(i, 5.7 - 0.4, 0.7);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.7);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 1.0);
+        glEnd();
+    }
+    //gagang kiri
+    //depan
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7, 1.0);
+    glVertex3f(5.4, 5.7, 1.0);
+    glVertex3f(5.4, 5.7 + 0.1, 1.0);
+    glVertex3f(0.4, 5.7 + 0.1, 1.0);
+    glEnd();
+    //belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7, 0.7);
+    glVertex3f(5.4, 5.7, 0.7);
+    glVertex3f(5.4, 5.7 + 0.1, 0.7);
+    glVertex3f(0.4, 5.7 + 0.1, 0.7);
+    glEnd();
+    // Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7, 1.0);
+    glVertex3f(0.4, 5.7, 0.7);
+    glVertex3f(0.4, 5.7 + 0.1, 0.7);
+    glVertex3f(0.4, 5.7 + 0.1, 1.0);
+    glEnd();
+    // Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(5.4, 5.7, 1.0);
+    glVertex3f(5.4, 5.7, 0.7);
+    glVertex3f(5.4, 5.7 + 0.1, 0.7);
+    glVertex3f(5.4, 5.7 + 0.1, 1.0);
+    glEnd();
+    // Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7 + 0.1, 1.0);
+    glVertex3f(5.4, 5.7 + 0.1, 1.0);
+    glVertex3f(5.4, 5.7 + 0.1, 0.7);
+    glVertex3f(0.4, 5.7 + 0.1, 0.7);
+    glEnd();
+    // Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7, 1.0);
+    glVertex3f(5.4, 5.7, 1.0);
+    glVertex3f(5.4, 5.7, 0.7);
+    glVertex3f(0.4, 5.7, 0.7);
+    glEnd();
+
+    //gagang kanan
+    //depan
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7 - 0.5, 1.0);
+    glVertex3f(5.4, 5.7 - 0.5, 1.0);
+    glVertex3f(5.4, 5.7 - 0.4, 1.0);
+    glVertex3f(0.4, 5.7 - 0.4, 1.0);
+    glEnd();
+    //belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7 - 0.5, 0.7);
+    glVertex3f(5.4, 5.7 - 0.5, 0.7);
+    glVertex3f(5.4, 5.7 - 0.4, 0.7);
+    glVertex3f(0.4, 5.7 - 0.4, 0.7);
+    glEnd();
+    //Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7 - 0.5, 1.0);
+    glVertex3f(0.4, 5.7 - 0.5, 0.7);
+    glVertex3f(0.4, 5.7 - 0.4, 0.7);
+    glVertex3f(0.4, 5.7 - 0.4, 1.0);
+    glEnd();
+    //Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(5.4, 5.7 - 0.5, 1.0);
+    glVertex3f(5.4, 5.7 - 0.5, 0.7);
+    glVertex3f(5.4, 5.7 - 0.4, 0.7);
+    glVertex3f(5.4, 5.7 - 0.4, 1.0);
+    glEnd();
+    //Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7 - 0.4, 1.0);
+    glVertex3f(5.4, 5.7 - 0.4, 1.0);
+    glVertex3f(5.4, 5.7 - 0.4, 0.7);
+    glVertex3f(0.4, 5.7 - 0.4, 0.7);
+    glEnd();
+    //Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 5.7 - 0.5, 1.0);
+    glVertex3f(5.4, 5.7 - 0.5, 1.0);
+    glVertex3f(5.4, 5.7 - 0.5, 0.7);
+    glVertex3f(0.4, 5.7 - 0.5, 0.7);
+    glEnd();
+
+    
+
+
+    //MENGGAMBAR TANGGA 4
+    
+    glColor3f(1.0f, 0.0f, 0.0f);
+    for (float i = 0; i < 3; i += 0.5) {
+        // anak tangga
+        // depan
+        glBegin(GL_POLYGON);
+        glVertex3f(2.6f + i, 7.9f + i, 1.0);
+        glVertex3f(2.5f + i, 7.8f + i, 1.0);
+        glVertex3f(2.95f + i, 7.5f + i, 1.0);
+        glVertex3f(3.0f + i, 7.6f + i, 1.0);
+        glEnd();
+        // belakang
+        glBegin(GL_POLYGON);
+        glVertex3f(2.6f + i, 7.9f + i, 0.7);
+        glVertex3f(2.5f + i, 7.8f + i, 0.7);
+        glVertex3f(2.95f + i, 7.5f + i, 0.7);
+        glVertex3f(3.0f + i, 7.6f + i, 0.7);
+        glEnd();
+        // kiri
+        glBegin(GL_POLYGON);
+        glVertex3f(2.6f + i, 7.9f + i, 1.0);
+        glVertex3f(2.5f + i, 7.8f + i, 1.0);
+        glVertex3f(2.5f + i, 7.8f + i, 0.7);
+        glVertex3f(2.6f + i, 7.9f + i, 0.7);
+        glEnd();
+        // kanan
+        glBegin(GL_POLYGON);
+        glVertex3f(2.95f + i, 7.5f + i, 1.0);
+        glVertex3f(3.0f + i, 7.6f + i, 1.0);
+        glVertex3f(3.0f + i, 7.6f + i, 0.7);
+        glVertex3f(2.95f + i, 7.5f + i, 0.7);
+        glEnd();
+        // atas
+        glBegin(GL_POLYGON);
+        glVertex3f(2.6f + i, 7.9f + i, 1.0);
+        glVertex3f(3.0f + i, 7.6f + i, 1.0);
+        glVertex3f(3.0f + i, 7.6f + i, 0.7);
+        glVertex3f(2.6f + i, 7.9f + i, 0.7);
+        glEnd();
+        // bawah
+        glBegin(GL_POLYGON);
+        glVertex3f(2.5f + i, 7.8f + i, 1.0);
+        glVertex3f(2.95f + i, 7.5f + i, 1.0);
+        glVertex3f(2.95f + i, 7.5f + i, 0.7);
+        glVertex3f(2.5f + i, 7.8f + i, 0.7);
+        glEnd();
+    }
+
+    //gagang kiri
+    // Depan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.4f, 7.7f, 1.0);
+    glVertex3f(2.5f, 7.6f, 1.0);
+    glVertex3f(5.4f, 10.7f, 1.0);
+    glVertex3f(5.3f, 10.8f, 1.0);
+    glEnd();
+    // Belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(2.4f, 7.7f, 0.7);
+    glVertex3f(2.5f, 7.6f, 0.7);
+    glVertex3f(5.4f, 10.7f, 0.7);
+    glVertex3f(5.3f, 10.8f, 0.7);
+    glEnd();
+    // Sisi Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(2.4f, 7.7f, 1.0);
+    glVertex3f(2.4f, 7.7f, 0.7);
+    glVertex3f(5.3f, 10.8f, 0.7);
+    glVertex3f(5.3f, 10.8f, 1.0);
+    glEnd();
+    // Sisi Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5f, 7.6f, 1.0);
+    glVertex3f(2.5f, 7.6f, 0.7);
+    glVertex3f(5.4f, 10.7f, 0.7);
+    glVertex3f(5.4f, 10.7f, 1.0);
+    glEnd();
+    // Sisi Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(5.3f, 10.8f, 1.0);
+    glVertex3f(5.3f, 10.8f, 0.7);
+    glVertex3f(5.4f, 10.7f, 0.7);
+    glVertex3f(5.4f, 10.7f, 1.0);
+    glEnd();
+    // Sisi Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(2.4f, 7.7f, 1.0);
+    glVertex3f(2.4f, 7.7f, 0.7);
+    glVertex3f(2.5f, 7.6f, 0.7);
+    glVertex3f(2.5f, 7.6f, 1.0);
+    glEnd();
+
+    //gagang kanan
+    //depan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7f, 7.3f, 1.0);
+    glVertex3f(2.8f, 7.2f, 1.0);
+    glVertex3f(5.7f, 10.3f, 1.0);
+    glVertex3f(5.6f, 10.4f, 1.0);
+    glEnd();
+    //belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7f, 7.3f, 0.7);
+    glVertex3f(2.8f, 7.2f, 0.7);
+    glVertex3f(5.7f, 10.3f, 0.7);
+    glVertex3f(5.6f, 10.4f, 0.7);
+    glEnd();
+    //Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7f, 7.3f, 1.0);
+    glVertex3f(2.7f, 7.3f, 0.7);
+    glVertex3f(2.8f, 7.2f, 0.7);
+    glVertex3f(2.8f, 7.2f, 1.0);
+    glEnd();
+    //Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(5.7f, 10.3f, 1.0);
+    glVertex3f(5.7f, 10.3f, 0.7);
+    glVertex3f(5.6f, 10.4f, 0.7);
+    glVertex3f(5.6f, 10.4f, 1.0);
+    glEnd();
+    //Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(2.8f, 7.2f, 1.0);
+    glVertex3f(2.8f, 7.2f, 0.7);
+    glVertex3f(5.7f, 10.3f, 0.7);
+    glVertex3f(5.7f, 10.3f, 1.0);
+    glEnd();
+    //Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(2.7f, 7.3f, 1.0);
+    glVertex3f(2.7f, 7.3f, 0.7);
+    glVertex3f(5.6f, 10.4f, 0.7);
+    glVertex3f(5.6f, 10.4f, 1.0);
+    glEnd();
+
+    
+}
+
+void drawUlar(){
+        //MENGGAMBAR ULAR 1
+    //kepala
+    // depan
+    
+    glColor3f(0.0, 0.0, 1.0);
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 9.5, 1.0);
+    glVertex3f(5.6, 9.5, 1.0);
+    glVertex3f(5.6, 7.4, 1.0);
+    glVertex3f(5.5, 7.4, 1.0);
+    glEnd();
+    // belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 9.5, 0.7);
+    glVertex3f(5.6, 9.5, 0.7);
+    glVertex3f(5.6, 7.4, 0.7);
+    glVertex3f(5.5, 7.4, 0.7);
+    glEnd();
+    // kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 9.5, 1.0);
+    glVertex3f(5.5, 9.5, 0.7);
+    glVertex3f(5.5, 7.4, 0.7);
+    glVertex3f(5.5, 7.4, 1.0);
+    glEnd();
+    // kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(5.6, 9.5, 1.0);
+    glVertex3f(5.6, 9.5, 0.7);
+    glVertex3f(5.6, 7.4, 0.7);
+    glVertex3f(5.6, 7.4, 1.0);
+    glEnd();
+    // atas
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 9.5, 1.0);
+    glVertex3f(5.6, 9.5, 1.0);
+    glVertex3f(5.6, 9.5, 0.7);
+    glVertex3f(5.5, 9.5, 0.7);
+    glEnd();
+    // bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 7.4, 1.0);
+    glVertex3f(5.6, 7.4, 1.0);
+    glVertex3f(5.6, 7.4, 0.7);
+    glVertex3f(5.5, 7.4, 0.7);
+    glEnd();
+
+    //badan
+    // Depan
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 7.4, 1.0);
+    glVertex3f(5.6, 7.4, 1.0);
+    glVertex3f(3.2, 6.2, 1.0);
+    glVertex3f(3.1, 6.2, 1.0);
+    glEnd();
+    // Belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 7.4, 0.7);
+    glVertex3f(5.6, 7.4, 0.7);
+    glVertex3f(3.2, 6.2, 0.7);
+    glVertex3f(3.1, 6.2, 0.7);
+    glEnd();
+    // Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(3.1, 6.2, 1.0);
+    glVertex3f(3.1, 6.2, 0.7);
+    glVertex3f(5.5, 7.4, 0.7);
+    glVertex3f(5.5, 7.4, 1.0);
+    glEnd();
+    // Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(3.2, 6.2, 1.0);
+    glVertex3f(3.2, 6.2, 0.7);
+    glVertex3f(5.6, 7.4, 0.7);
+    glVertex3f(5.6, 7.4, 1.0);
+    glEnd();
+    // Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 7.4, 1.0);
+    glVertex3f(5.5, 7.4, 0.7);
+    glVertex3f(5.6, 7.4, 0.7);
+    glVertex3f(5.6, 7.4, 1.0);
+    glEnd();
+    // Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(3.1, 6.2, 1.0);
+    glVertex3f(3.1, 6.2, 0.7);
+    glVertex3f(3.2, 6.2, 0.7);
+    glVertex3f(3.2, 6.2, 1.0);
+    glEnd();
+
+    //ekor
+    // depan
+    glBegin(GL_POLYGON);
+    glVertex3f(3.1, 6.2, 1.0);
+    glVertex3f(3.2, 6.2, 1.0);
+    glVertex3f(3.5, 3.5, 1.0);
+    glVertex3f(3.5, 3.5, 1.0);
+    glEnd();
+    // belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(3.1, 6.2, 0.7);
+    glVertex3f(3.2, 6.2, 0.7);
+    glVertex3f(3.5, 3.5, 0.7);
+    glVertex3f(3.5, 3.5, 0.7);
+    glEnd();
+    // kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(3.1, 6.2, 1.0);
+    glVertex3f(3.1, 6.2, 0.7);
+    glVertex3f(3.5, 3.5, 0.7);
+    glVertex3f(3.5, 3.5, 1.0);
+    glEnd();
+    // kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(3.2, 6.2, 1.0);
+    glVertex3f(3.2, 6.2, 0.7);
+    glVertex3f(3.5, 3.5, 0.7);
+    glVertex3f(3.5, 3.5, 1.0);
+    glEnd();
+    // atas
+    glBegin(GL_POLYGON);
+    glVertex3f(3.1, 6.2, 1.0);
+    glVertex3f(3.2, 6.2, 1.0);
+    glVertex3f(3.2, 6.2, 0.7);
+    glVertex3f(3.1, 6.2, 0.7);
+    glEnd();
+    // bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(3.5, 3.5, 1.0);
+    glVertex3f(3.5, 3.5, 0.7);
+    glVertex3f(3.5, 3.5, 0.7);
+    glVertex3f(3.5, 3.5, 1.0);
+    glEnd();
+
+    
+
+
+    //MENGGAMBAR ULAR 2
+    //kepala
+    //depan
+    
+    glColor3f(0.0, 0.0, 1.0);
+    glBegin(GL_POLYGON);
+    glVertex3f(1.5, 11.5, 1.0);
+    glVertex3f(1.6, 11.5, 1.0);
+    glVertex3f(2.6, 10.5, 1.0);
+    glVertex3f(2.5, 10.5, 1.0);
+    glEnd();
+    //belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(1.5, 11.5, 0.7);
+    glVertex3f(1.6, 11.5, 0.7);
+    glVertex3f(2.6, 10.5, 0.7);
+    glVertex3f(2.5, 10.5, 0.7);
+    glEnd();
+    //kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(1.5, 11.5, 1.0);
+    glVertex3f(1.5, 11.5, 0.7);
+    glVertex3f(2.5, 10.5, 0.7);
+    glVertex3f(2.5, 10.5, 1.0);
+    glEnd();
+    //kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(1.6, 11.5, 1.0);
+    glVertex3f(1.6, 11.5, 0.7);
+    glVertex3f(2.6, 10.5, 0.7);
+    glVertex3f(2.6, 10.5, 1.0);
+    glEnd();
+    //atas
+    glBegin(GL_POLYGON);
+    glVertex3f(1.5, 11.5, 1.0);
+    glVertex3f(1.6, 11.5, 1.0);
+    glVertex3f(1.6, 11.5, 0.7);
+    glVertex3f(1.5, 11.5, 0.7);
+    glEnd();
+    //bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 10.5, 1.0);
+    glVertex3f(2.6, 10.5, 1.0);
+    glVertex3f(2.6, 10.5, 0.7);
+    glVertex3f(2.5, 10.5, 0.7);
+    glEnd();
+
+    //badan
+    //depan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 10.5, 1.0);
+    glVertex3f(2.6, 10.5, 1.0);
+    glVertex3f(2.6, 9.8, 1.0);
+    glVertex3f(2.5, 9.8, 1.0);
+    glEnd();
+    //belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 10.5, 0.7);
+    glVertex3f(2.6, 10.5, 0.7);
+    glVertex3f(2.6, 9.8, 0.7);
+    glVertex3f(2.5, 9.8, 0.7);
+    glEnd();
+    //kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 10.5, 1.0);
+    glVertex3f(2.5, 10.5, 0.7);
+    glVertex3f(2.5, 9.8, 0.7);
+    glVertex3f(2.5, 9.8, 1.0);
+    glEnd();
+    //kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.6, 10.5, 1.0);
+    glVertex3f(2.6, 10.5, 0.7);
+    glVertex3f(2.6, 9.8, 0.7);
+    glVertex3f(2.6, 9.8, 1.0);
+    glEnd();
+    //atas
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 10.5, 1.0);
+    glVertex3f(2.6, 10.5, 1.0);
+    glVertex3f(2.6, 10.5, 0.7);
+    glVertex3f(2.5, 10.5, 0.7);
+    glEnd();
+    //bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 9.8, 1.0);
+    glVertex3f(2.6, 9.8, 1.0);
+    glVertex3f(2.6, 9.8, 0.7);
+    glVertex3f(2.5, 9.8, 0.7);
+    glEnd();
+
+    //ekor
+    // Depan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 9.8, 1.0);
+    glVertex3f(2.6, 9.8, 1.0);
+    glVertex3f(1.5, 9.3, 1.0);
+    glVertex3f(1.5, 9.3, 1.0);
+    glEnd();
+    // Belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 9.8, 0.7);
+    glVertex3f(2.6, 9.8, 0.7);
+    glVertex3f(1.5, 9.3, 0.7);
+    glVertex3f(1.5, 9.3, 0.7);
+    glEnd();
+    // Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 9.8, 1.0);
+    glVertex3f(2.5, 9.8, 0.7);
+    glVertex3f(1.5, 9.3, 0.7);
+    glVertex3f(1.5, 9.3, 1.0);
+    glEnd();
+    // Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(2.6, 9.8, 1.0);
+    glVertex3f(2.6, 9.8, 0.7);
+    glVertex3f(1.5, 9.3, 0.7);
+    glVertex3f(1.5, 9.3, 1.0);
+    glEnd();
+    // Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(2.5, 9.8, 1.0);
+    glVertex3f(2.6, 9.8, 1.0);
+    glVertex3f(2.6, 9.8, 0.7);
+    glVertex3f(2.5, 9.8, 0.7);
+    glEnd();
+    // Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(1.5, 9.3, 1.0);
+    glVertex3f(1.5, 9.3, 0.7);
+    glVertex3f(2.6, 9.8, 0.7);
+    glVertex3f(2.6, 9.8, 1.0);
+    glEnd();
+
+    
+
+
+    //MENGGAMBAR ULAR 3
+    
+    glColor3f(0.0,0.0,1.0);
+    //kepala
+    // Depan
+    glBegin(GL_POLYGON);
+    glVertex3f(6.5, 3.5, 1.0);
+    glVertex3f(6.5 + 0.1, 3.5, 1.0);
+    glVertex3f(5.5 + 0.1, 2.4, 1.0);
+    glVertex3f(5.5, 2.4, 1.0);
+    glEnd();
+    // Belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(6.5, 3.5, 0.7);
+    glVertex3f(6.5 + 0.1, 3.5, 0.7);
+    glVertex3f(5.5 + 0.1, 2.4, 0.7);
+    glVertex3f(5.5, 2.4, 0.7);
+    glEnd();
+    // Left side
+    glBegin(GL_POLYGON);
+    glVertex3f(6.5, 3.5, 1.0);
+    glVertex3f(6.5, 3.5, 0.7);
+    glVertex3f(5.5, 2.4, 0.7);
+    glVertex3f(5.5, 2.4, 1.0);
+    glEnd();
+    // Right side
+    glBegin(GL_POLYGON);
+    glVertex3f(6.6, 3.5, 1.0);
+    glVertex3f(6.6, 3.5, 0.7);
+    glVertex3f(5.6, 2.4, 0.7);
+    glVertex3f(5.6, 2.4, 1.0);
+    glEnd();
+    // Top side
+    glBegin(GL_POLYGON);
+    glVertex3f(6.5, 3.5, 1.0);
+    glVertex3f(6.6, 3.5, 1.0);
+    glVertex3f(6.6, 3.5, 0.7);
+    glVertex3f(6.5, 3.5, 0.7);
+    glEnd();
+    // Bottom side
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 2.4, 1.0);
+    glVertex3f(5.6, 2.4, 1.0);
+    glVertex3f(5.6, 2.4, 0.7);
+    glVertex3f(5.5, 2.4, 0.7);
+    glEnd();
+
+
+    //badan
+    // Depan
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 2.4, 1.0);
+    glVertex3f(5.6, 2.4, 1.0);
+    glVertex3f(6.2, 1.7, 1.0);
+    glVertex3f(6.1, 1.7, 1.0);
+    glEnd();
+    // Belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 2.4, 0.7);
+    glVertex3f(5.6, 2.4, 0.7);
+    glVertex3f(6.2, 1.7, 0.7);
+    glVertex3f(6.1, 1.7, 0.7);
+    glEnd();
+    // Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 2.4, 1.0);
+    glVertex3f(5.5, 2.4, 0.7);
+    glVertex3f(6.1, 1.7, 0.7);
+    glVertex3f(6.1, 1.7, 1.0);
+    glEnd();
+    // Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(5.6, 2.4, 1.0);
+    glVertex3f(5.6, 2.4, 0.7);
+    glVertex3f(6.2, 1.7, 0.7);
+    glVertex3f(6.2, 1.7, 1.0);
+    glEnd();
+    // Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(5.5, 2.4, 1.0);
+    glVertex3f(5.6, 2.4, 1.0);
+    glVertex3f(5.6, 2.4, 0.7);
+    glVertex3f(5.5, 2.4, 0.7);
+    glEnd();
+    // Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(6.1, 1.7, 1.0);
+    glVertex3f(6.2, 1.7, 1.0);
+    glVertex3f(6.2, 1.7, 0.7);
+    glVertex3f(6.1, 1.7, 0.7);
+    glEnd();
+
+    //ekor
+    // Depan
+    glBegin(GL_POLYGON);
+    glVertex3f(6.1, 1.7, 1.0);
+    glVertex3f(6.1 + 0.1, 1.7, 1.0);
+    glVertex3f(4.5, 0.7, 1.0);
+    glVertex3f(4.5, 0.7, 1.0);
+    glEnd();
+    // Belakang
+    glBegin(GL_POLYGON);
+    glVertex3f(6.1, 1.7, 0.7);
+    glVertex3f(6.1 + 0.1, 1.7, 0.7);
+    glVertex3f(4.5, 0.7, 0.7);
+    glVertex3f(4.5, 0.7, 0.7);
+    glEnd();
+    //Kiri
+    glBegin(GL_POLYGON);
+    glVertex3f(6.1, 1.7, 1.0);
+    glVertex3f(6.1, 1.7, 0.7);
+    glVertex3f(4.5, 0.7, 0.7);
+    glVertex3f(4.5, 0.7, 1.0);
+    glEnd();
+    //Kanan
+    glBegin(GL_POLYGON);
+    glVertex3f(6.1 + 0.1, 1.7, 1.0);
+    glVertex3f(6.1 + 0.1, 1.7, 0.7);
+    glVertex3f(4.5, 0.7, 0.7);
+    glVertex3f(4.5, 0.7, 1.0);
+    glEnd();
+    //Atas
+    glBegin(GL_POLYGON);
+    glVertex3f(6.1, 1.7, 1.0);
+    glVertex3f(6.1 + 0.1, 1.7, 1.0);
+    glVertex3f(6.1 + 0.1, 1.7, 0.7);
+    glVertex3f(6.1, 1.7, 0.7);
+    glEnd();
+    //Bawah
+    glBegin(GL_POLYGON);
+    glVertex3f(4.5, 0.7, 1.0);
+    glVertex3f(4.5, 0.7, 0.7);
+    glVertex3f(6.1 + 0.1, 1.7, 0.7);
+    glVertex3f(6.1, 1.7, 1.0);
+    glEnd();
+
+
+    
+}
 void drawKotak(bool warna_transparan) {
 
 
@@ -1385,6 +2359,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(2,2,0.5);
         glVertex3f(2,2,0);
     glEnd();
+    drawSix(1.0,2.0,0.7,0.1);
 
 
     //kotak 15
@@ -1685,6 +2660,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(3,3,0.5);
         glVertex3f(3,3,0);
     glEnd();
+    drawSix(2.0,3.0,0.7,0.1);
 
 
     //kotak 27
@@ -2187,7 +3163,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(7,5,0.5);
         glVertex3f(7,5,0);
     glEnd();
-
+    drawSix(6.0,5.0,0.7,0.1);
 
     //kotak 37
 
@@ -2687,7 +3663,8 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(4,6,0.5);
         glVertex3f(4,6,0);
     glEnd();
-    drawFour(3.0,6.0,0.7,0.1);
+    drawFour(2.8,6.0,0.7,0.1);
+    drawSix(3.0,6.0,0.7,0.1);
 
     //kotak 45
 
@@ -2788,6 +3765,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(2,6,0);
     glEnd();
     drawFour(1.0,6.0,0.7,0.1);
+    drawFour(0.8,6.0,0.7,0.1);
 
     //kotak 43
 
@@ -3187,7 +4165,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(1,7,0.5);
         glVertex3f(1,7,0);
     glEnd();
-
+    drawSix(0.0,7.0,0.7,0.1);
 
     //kotak 63
 
@@ -3237,6 +4215,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(7,8,0.5);
         glVertex3f(7,8,0);
     glEnd();
+    drawSix(6.0,8.0,0.7,0.1);
 
 
     //kotak 62
@@ -3287,7 +4266,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(6,9,0.5);
         glVertex3f(6,9,0);
     glEnd();
-
+    drawSix(5.0,8.0,0.7,0.1);
 
     //kotak 61
 
@@ -3337,6 +4316,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(5,8,0.5);
         glVertex3f(5,8,0);
     glEnd();
+    drawSix(4.0,8.0,0.7,0.1);
 
 
     //kotak 60
@@ -3387,7 +4367,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(4,8,0.5);
         glVertex3f(4,8,0);
     glEnd();
-
+    drawSix(3.0,8.0,0.7,0.1);
 
     //kotak 59
 
@@ -3588,6 +4568,8 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(7,9,0);
     glEnd();
     drawFour(6.0,9.0,0.7,0.1);
+    drawSix(5.8,9.0,0.7,0.1);
+
 
     //kotak 65
 
@@ -3637,6 +4619,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(6,10,0.5);
         glVertex3f(6,10,0);
     glEnd();
+    drawSix(5.0,9.0,0.7,0.1);
 
 
     //kotak 66
@@ -3687,6 +4670,8 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(5,9,0.5);
         glVertex3f(5,9,0);
     glEnd();
+    drawSix(4.0,9.0,0.7,0.1);
+    drawSix(3.8,9.0,0.7,0.1);
 
 
     //kotak 67
@@ -3737,7 +4722,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(4,9,0.5);
         glVertex3f(4,9,0);
     glEnd();
-
+    drawSix(3.0,9.0,0.7,0.1);
 
     //kotak 68
 
@@ -3787,6 +4772,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(3,9,0.5);
         glVertex3f(3,9,0);
     glEnd();
+    drawSix(2.0,9.0,0.7,0.1);
 
 
     //kotak 69
@@ -3837,6 +4823,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(2,9,0.5);
         glVertex3f(2,9,0);
     glEnd();
+    drawSix(1.0,9.0,0.7,0.1);
 
 
     //kotak 70
@@ -3988,7 +4975,7 @@ void drawKotak(bool warna_transparan) {
         glVertex3f(6,11,0.5);
         glVertex3f(6,11,0);
     glEnd();
-
+    drawSix(5.0,10.0,0.7,0.1);
 
     //kotak 75
 
@@ -5359,6 +6346,9 @@ void drawBoard() {
     drawPlayer1(bidak_player1_X, bidak_player1_Y);
     drawPlayer2(bidak_player2_X, bidak_player2_Y);
 
+    drawTangga();
+    drawUlar();
+
 
 glutSwapBuffers();
 glFlush();
@@ -5458,16 +6448,21 @@ void input(unsigned char key, int x, int y) {
 
     //Fungsi Penggerak Bidak
     if (key == 32) {
+        if (pemenang == 1) {
+            cout << "Player 1 Menang" << endl;
+        } else if (pemenang == 2 ){
+            cout << "Player 2 Menang" << endl;
+        }else{
+                
         if(giliran_player1) {
-            cout << "Letak Awal Player1 : " << jumlahlemparan << endl;
             int rand_player1 = rollDice();
-            cout << "Player1 Mendapatkan : " << rand_player1 << " Nilai Dadu"<< endl;
+            cout << "Player1 Main : " << rand_player1 << " Nilai Dadu"<< endl;
             jumlahlemparan += rand_player1;
-            cout << "Letak Player1 Setelah Dijumlah : " << jumlahlemparan << endl;
+            cout << "Kotak Player 1 : " << jumlahlemparan << endl;
             cout <<"===========================================================" <<endl;
             if (jumlahlemparan == 1){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 0 ;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 0.4;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 2){
@@ -5475,10 +6470,15 @@ void input(unsigned char key, int x, int y) {
                 bidak_player1_Y = 0.7;
                 giliran_player1 = false;
             }
+            // TANGGA 1 
             else if (jumlahlemparan == 3) {
                 bidak_player1_X = 2.4;
                 bidak_player1_Y = 0.7;
                 giliran_player1 = false;
+                jumlahlemparan = 26;
+                cout << "Player 1 Naik Tangga" << endl;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 3.7;
             }
             else if (jumlahlemparan == 4){
                 bidak_player1_X = 3.4;
@@ -5486,868 +6486,918 @@ void input(unsigned char key, int x, int y) {
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 5){
-                bidak_player1_X = 5.4;
+                bidak_player1_X = 4.4;
                 bidak_player1_Y = 0.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 6){
-                bidak_player1_X = 6.4;
+                bidak_player1_X = 5.4;
                 bidak_player1_Y = 0.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 7){
                 bidak_player1_X = 6.4;
-                bidak_player1_Y = 1.7;
+                bidak_player1_Y = 0.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 8){
-                bidak_player1_X = 5.4;
-                bidak_player1_Y = 1.4;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan== 9){
-                bidak_player1_X = 4.4;
-                bidak_player1_Y = 1.4;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 10){
-                bidak_player1_X = 3.4;
-                bidak_player1_Y = 1.4;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 11){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 12){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 13){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
-            //Tanggga 1 (14-30)
             else if (jumlahlemparan == 14){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
-                // jumlahlemparan = 16; //Typo
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 15){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 1.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 16){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 2.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 17){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 2.7;
                 giliran_player1 = false;
             }
-            //Ular 1 (18-8)
             else if (jumlahlemparan == 18){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
-                // jumlahlemparan = 10;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 2.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 19){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 2.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 20){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 2.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 21){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 2.7;
                 giliran_player1 = false;
             }
+            // ULAR 1
             else if (jumlahlemparan == 22){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 3.7;
                 giliran_player1 = false;
+                cout << "Player 1 tertangkap Ular" << endl;
+                jumlahlemparan = 5;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 0.7;
             }
             else if (jumlahlemparan == 23){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 3.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 24){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 3.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 25){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 3.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 26){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 3.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 27){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 3.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 28){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 3.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 29){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 4.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 30){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 4.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 31){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 4.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 32){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 4.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 33){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 4.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 34){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 4.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 35){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 4.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 36){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 5.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 37){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 5.7;
                 giliran_player1 = false;
+                jumlahlemparan = 42;
+                cout << "Player 1 Naik Tangga" << endl;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 5.7;
             }
             else if (jumlahlemparan == 38){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 5.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 39){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 5.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 40){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 5.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 41){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 5.7;
                 // jumlahlemparan = 3;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 42){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 5.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 43){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 6.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 44){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 6.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 45){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 6.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 46){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 6.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 47){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 6.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 48){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 6.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 49){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 6.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 50){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 7.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 51){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 7.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 52){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 7.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 53){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 7.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 54){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 7.7;
                 giliran_player1 = false;
+                jumlahlemparan = 76;
+                cout << "Player 1 Naik Tangga" << endl;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 10.7;
             }
             else if (jumlahlemparan == 55){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 7.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 56){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 7.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 57){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 8.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 58){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 8.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 59){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 8.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 60){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 8.7;
                 giliran_player1 = false;
             }
-            //Ular 2 (61-45)
+           
             else if (jumlahlemparan == 61){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
-                // jumlahlemparan = 16;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 8.7;
+               
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 62){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 8.7;
                 giliran_player1 = false;
             }
+            // TANGGA 4
             else if (jumlahlemparan == 63){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 8.7;
                 giliran_player1 = false;
+                jumlahlemparan = 78;
+                cout << "Player 1 Naik Tangga" << endl;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 11.7;
             }
-            //Tangga 2 (64-76)
             else if (jumlahlemparan == 64){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
-                // jumlahlemparan = 12;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 9.7;
                 giliran_player1 = false;
             }
+            // ULAR 2
             else if (jumlahlemparan == 65){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 9.7;
                 giliran_player1 = false;
+                jumlahlemparan  = 25;
+                cout << "Player 1 tertangkap Ular" << endl;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 3.7;
             }
             else if (jumlahlemparan == 66){
-                 bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 9.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 67){
-                 bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 9.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 68){
-                 bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 9.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 69){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 9.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 70){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 9.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 71){
-                bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 10.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 72){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 10.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 73){
-                  bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 10.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 74){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 10.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 75){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 10.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 76){
-              bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 10.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 77){
-               bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 10.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 78){
-               bidak_player1_X = 0;
-                bidak_player1_Y = 1;
+                bidak_player1_X = 6.4;
+                bidak_player1_Y = 11.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 79){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 5.4;
+                bidak_player1_Y = 11.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 80){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 4.4;
+                bidak_player1_Y = 11.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 81){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 3.4;
+                bidak_player1_Y = 11.7;
                 giliran_player1 = false;
             }
             //Ular 3 (82-71)
             else if (jumlahlemparan == 82){
-                 bidak_player1_X = 1;
-                bidak_player1_Y = 0;
-                jumlahlemparan = 11;
+                bidak_player1_X = 2.4;
+                bidak_player1_Y = 11.7;
+
                 giliran_player1 = false;
             }
             else if (jumlahlemparan == 83){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 11.7;
                 giliran_player1 = false;
+                jumlahlemparan = 69;
+                cout << "Player 1 tertangkap Ular" << endl;
+                bidak_player1_X = 1.4;
+                bidak_player1_Y = 9.7;
             }
             else if (jumlahlemparan == 84){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 11.7;
                 giliran_player1 = false;
             }
             else if (jumlahlemparan > 84){
-                bidak_player1_X = 1;
-                bidak_player1_Y = 0;
+                bidak_player1_X = 0.4;
+                bidak_player1_Y = 11.7;
                 cout << "Player2 Menang" << endl;
-                exit(0);
+                pemenang = 1;
             }
          }
          else {
             cout << "Letak Awal Player2 : " << jumlahlemparan2 << endl;
-            int rand_player2 = rand() % 6 + 1;
+            int rand_player2 = rollDice();
             cout << "Player2 mendapatkan : " << rand_player2 <<" Nilai Dadu"<< endl;
-            jumlahlemparan2 = rand_player2;
-            cout << "Letak Player2 Setelah Dijumlah : " << jumlahlemparan2 << endl;
+            jumlahlemparan2 += rand_player2;
+            cout << "Letak Player2  : " << jumlahlemparan2 << endl;
             cout <<"===========================================================" <<endl;
             if (jumlahlemparan2 == 1){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 0 ;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 0.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 2){
-                bidak_player2_X = 1;
-                bidak_player2_Y =0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 0.4;
                 giliran_player1 = true;
             }
+            // TANGGA 1
             else if (jumlahlemparan2 == 3) {
-                bidak_player2_X = 2;
-                bidak_player2_Y =0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 0.4;
                 giliran_player1 = true;
+                jumlahlemparan2 = 26;
+                cout << "Player 2 Naik Tangga" << endl;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 3.4;
             }
             else if (jumlahlemparan2 == 4){
-                bidak_player2_X = 3;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 0.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 5){
-                bidak_player2_X = 3;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 0.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 6){
-                bidak_player2_X = 2;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 0.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 7){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 0.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 8){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2== 9){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 10){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 11){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 12){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 13){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
-            //Tanggga 1 (14-30)
             else if (jumlahlemparan2 == 14){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
-                // jumlahlemparan2 = 16; //Typo
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 15){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 1.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 16){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 2.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 17){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 2.4;
                 giliran_player1 = true;
             }
-            //Ular 1 (18-8)
             else if (jumlahlemparan2 == 18){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
-                // jumlahlemparan2 = 10;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 2.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 19){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 2.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 20){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 2.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 21){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 2.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 22){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 3.4;
                 giliran_player1 = true;
+                jumlahlemparan2 = 5;
+                cout << "Player 2 tertangkap Ular" << endl;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 0.4;
             }
             else if (jumlahlemparan2 == 23){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 3.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 24){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 3.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 25){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 3.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 26){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 3.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 27){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 3.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 28){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 3.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 29){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 4.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 30){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 4.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 31){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 4.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 32){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 4.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 33){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 4.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 34){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 4.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 35){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 4.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 36){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 5.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 37){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 5.4;
                 giliran_player1 = true;
+                jumlahlemparan2 = 42;
+                cout << "Player 2 Naik Tangga" << endl;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 5.4;
+
             }
             else if (jumlahlemparan2 == 38){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 5.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 39){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 5.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 40){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 5.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 41){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 5.4;
                 // jumlahlemparan2 = 3;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 42){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 5.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 43){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 6.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 44){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 6.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 45){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 6.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 46){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 6.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 47){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 6.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 48){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 6.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 49){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 6.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 50){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 7.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 51){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 7.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 52){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 7.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 53){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 7.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 54){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 7.4;
                 giliran_player1 = true;
+                jumlahlemparan2 = 76;
+                cout << "Player 2 Naik Tangga" << endl;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 10.4;
+
             }
             else if (jumlahlemparan2 == 55){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 7.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 56){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 7.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 57){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 8.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 58){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 8.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 59){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 8.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 60){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 8.4;
                 giliran_player1 = true;
             }
-            //Ular 2 (61-45)
             else if (jumlahlemparan2 == 61){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
-                // jumlahlemparan2 = 16;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 8.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 62){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 8.4;
                 giliran_player1 = true;
             }
+            // TANGgA 4
             else if (jumlahlemparan2 == 63){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 8.4;
                 giliran_player1 = true;
+                jumlahlemparan2 = 78;
+                cout << "Player 2 Naik Tangga" << endl;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 11.4;
+
             }
-            //Tangga 2 (64-76)
             else if (jumlahlemparan2 == 64){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
-                // jumlahlemparan2 = 12;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 9.4;
                 giliran_player1 = true;
             }
+            // ULAR 2
             else if (jumlahlemparan2 == 65){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 9.4;
                 giliran_player1 = true;
+                jumlahlemparan2 = 25;
+                cout << "Player 2 tertangkap Ular" << endl;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 3.4;
+
             }
             else if (jumlahlemparan2 == 66){
-                 bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 9.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 67){
-                 bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 9.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 68){
-                 bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 9.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 69){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 9.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 70){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 9.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 71){
-                bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 10.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 72){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 10.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 73){
-                  bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 10.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 74){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 10.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 75){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 10.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 76){
-              bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 10.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 77){
-               bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 10.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 78){
-               bidak_player2_X = 0;
-                bidak_player2_Y = 1;
+                bidak_player2_X = 6.4;
+                bidak_player2_Y = 11.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 79){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 5.4;
+                bidak_player2_Y = 11.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 80){
-                    bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 4.4;
+                bidak_player2_Y = 11.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 81){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 3.4;
+                bidak_player2_Y = 11.4;
                 giliran_player1 = true;
             }
-            //Ular 3 (82-71)
+        
             else if (jumlahlemparan2 == 82){
-                 bidak_player2_X = 1;
-                bidak_player2_Y = 0;
-                jumlahlemparan2 = 11;
+                bidak_player2_X = 2.4;
+                bidak_player2_Y = 11.4;
+
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 == 83){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 11.4;
                 giliran_player1 = true;
+                jumlahlemparan2 = 69;
+                cout << "Player 2 tertangkap Ular" << endl;
+                bidak_player2_X = 1.4;
+                bidak_player2_Y = 9.4;
             }
             else if (jumlahlemparan2 == 84){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 11.4;
                 giliran_player1 = true;
             }
             else if (jumlahlemparan2 > 84){
-                bidak_player2_X = 1;
-                bidak_player2_Y = 0;
+                bidak_player2_X = 0.4;
+                bidak_player2_Y = 11.4;
                 cout << "Player2 Menang" << endl;
-                exit(0);
+                pemenang =2;
             }
          }
+    
+        }
     }
 
     drawBoard();
